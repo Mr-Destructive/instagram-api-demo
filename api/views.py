@@ -26,7 +26,7 @@ class FeedPostView(APIView):
             "instagram_password": user.instagram_password,
             "user_id": user_id,
         }
-        url = f"http://127.0.0.1:8000/user/update/{pk}"
+        url = f"https://demo-instagram-api.herokuapp.com/user/update/{pk}"
         user = requests.put(url, data=user_body)
         user = json.loads(user.text)
         results = api.user_feed(user_id)
@@ -47,7 +47,8 @@ class FeedPostView(APIView):
                     "username": username,
                 }
                 caption = requests.post(
-                    "http://127.0.0.1:8000/api/caption/create/", data=caption_body
+                    "https://demo-instagram-api.herokuapp.com/api/caption/create/",
+                    data=caption_body,
                 )
                 caption = json.loads(caption.text)
 
@@ -64,7 +65,8 @@ class FeedPostView(APIView):
                     "caption_data": caption_list,
                 }
                 post_resp = requests.post(
-                    "http://127.0.0.1:8000/api/post/create/", data=post_body
+                    "https://demo-instagram-api.herokuapp.com/api/post/create/",
+                    data=post_body,
                 )
                 post = json.loads(post_resp.text)
                 posts.append(post["id"])
@@ -73,7 +75,8 @@ class FeedPostView(APIView):
             feed_body = {"user": pk, "posts": posts}
 
             response = requests.post(
-                "http://127.0.0.1:8000/api/feed/create/", data=feed_body
+                "https://demo-instagram-api.herokuapp.com/api/feed/create/",
+                data=feed_body,
             )
             feed = json.loads(response.text)
             return Response(response)

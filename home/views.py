@@ -28,7 +28,7 @@ class InstaFeedView(LoginRequiredMixin, ListView):
     template_name = "feed_list.html"
 
     def get_context_data(self, **kwargs):
-        url = f"http://127.0.0.1:8000/api/{self.request.user.id}"
+        url = f"https://demo-instagram-api.herokuapp.com/api/{self.request.user.id}"
         feed = requests.get(url)
         context = {}
         feed_list = Feed.objects.filter(user=self.request.user).all()
