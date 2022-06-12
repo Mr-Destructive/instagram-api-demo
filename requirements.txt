@@ -1,0 +1,12 @@
+asgiref==3.5.2
+certifi==2022.5.18.1
+charset-normalizer==2.0.12
+Django==4.0.5
+django-crispy-forms==1.14.0
+djangorestframework==3.13.1
+idna==3.3
+instagram-private-api @ git+https://git@github.com/ping/instagram_private_api.git@1d70e99bc11591161b0cd71cff3f0c08cd04b34f
+pytz==2022.1
+requests==2.28.0
+sqlparse==0.4.2
+urllib3==1.26.9
