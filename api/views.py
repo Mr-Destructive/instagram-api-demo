@@ -20,15 +20,19 @@ class FeedPostView(APIView):
         user = Profile.objects.get(id=pk)
         api = Client(user.username, user.instagram_password)
         user_id = api.username_info(user.username)["user"]["pk"]
+        # url = "http://127.0.0.1:8000"
+        url = "https://demo-instagram-api.herokuapp.com"
 
-        user_body = {
-            "username": user.username,
-            "instagram_password": user.instagram_password,
-            "user_id": user_id,
-        }
-        url = f"https://demo-instagram-api.herokuapp.com/user/update/{pk}"
-        user = requests.put(url, data=user_body)
-        user = json.loads(user.text)
+        user_body = json.dumps(
+            {
+                "username": user.username,
+                "instagram_password": user.instagram_password,
+                "user_id": user_id,
+            }
+        )
+        # url = f"{url}/user/update/{pk}"
+        # user = requests.put(url, data=user_body)
+        # user = json.loads(user.text)
         results = api.user_feed(user_id)
         items = [item for item in results.get("items", [])]
         posts = []
@@ -47,7 +51,7 @@ class FeedPostView(APIView):
                     "username": username,
                 }
                 caption = requests.post(
-                    "https://demo-instagram-api.herokuapp.com/api/caption/create/",
+                    f"{url}/api/caption/create/",
                     data=caption_body,
                 )
                 caption = json.loads(caption.text)
@@ -59,13 +63,13 @@ class FeedPostView(APIView):
                 user_id = item["user"]["pk"]
 
                 post_body = {
-                    "post_id": post_id,
-                    "user_id": user_id,
+                    "post_id": str(post_id),
+                    "user_id": str(user_id),
                     "code": code,
                     "caption_data": caption_list,
                 }
                 post_resp = requests.post(
-                    "https://demo-instagram-api.herokuapp.com/api/post/create/",
+                    f"{url}/api/post/create/",
                     data=post_body,
                 )
                 post = json.loads(post_resp.text)
@@ -75,7 +79,7 @@ class FeedPostView(APIView):
             feed_body = {"user": pk, "posts": posts}
 
             response = requests.post(
-                "https://demo-instagram-api.herokuapp.com/api/feed/create/",
+                f"{url}/api/feed/create/",
                 data=feed_body,
             )
             feed = json.loads(response.text)

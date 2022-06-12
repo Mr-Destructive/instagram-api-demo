@@ -2,6 +2,7 @@ import os
 from pathlib import Path
 from dotenv import load_dotenv
 import dj_database_url
+import django_heroku
 import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -15,7 +16,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    "127.0.0.1:8000",
+    "127.0.0.1",
     "demo-instagram-api.herokuapp.com",
 ]
 
@@ -41,6 +42,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
 ]
 
 ROOT_URLCONF = "instagram_api.urls"
@@ -104,3 +106,4 @@ AUTH_USER_MODEL = "user.Profile"
 
 LOGIN_REDIRECT_URL = "home"
 LOGIN_URL = "login"
+django_heroku.settings(locals())

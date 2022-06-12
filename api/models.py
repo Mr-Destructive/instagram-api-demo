@@ -16,8 +16,8 @@ class Caption(models.Model):
 
 
 class Post(models.Model):
-    post_id = models.IntegerField()
-    user_id = models.IntegerField()
+    post_id = models.CharField(max_length=255)
+    user_id = models.CharField(max_length=255)
     code = models.CharField(max_length=255)
     caption_data = models.ForeignKey(
         Caption,
