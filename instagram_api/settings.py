@@ -12,13 +12,12 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
-SECRET_KEY = "django-insecure-q4jwg27=*#9^pjmc-bv9s8ds6n5&nr15eq+p2!e&%t92fos&*c"
-
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = [
+    "127.0.0.1:8000",
+    "demo-instagram-api.herokuapp.com",
+]
 
 INSTALLED_APPS = [
     "django.contrib.admin",
